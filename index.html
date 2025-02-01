@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>乘法贪吃蛇2</title>
+    <title>ククスネ2</title>
     <style>
         * {
             margin: 0;
@@ -23,7 +23,7 @@ body {
 
     h1 {
         color: #1990da;
-        margin: 10px;
+        margin: 5px;
         font-size: clamp(1.2rem, 4vw, 2rem);
         text-align: center;
     }
@@ -53,8 +53,8 @@ body {
     #question {
         font-size: clamp(1rem, 3vw, 1.5rem);
         color: #0b7bea;
-        margin: 5px;
-        padding: 10px;
+        margin: 10px;
+        padding: 5px;
         background-color: #f3d448;
         border-radius: 5px;
         text-align: center;
@@ -76,6 +76,7 @@ body {
     }
 
     #controls {
+        display: none !important;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 5px;
@@ -85,7 +86,7 @@ body {
     }
 
     .control-btn {
-        padding: 15px;
+        padding: 5px;
         font-size: clamp(1rem, 3vw, 1.2rem);
         background-color: #89c8b3;
         color: rgb(50, 152, 248);
@@ -134,7 +135,7 @@ body {
         }
     }
 </style>
-</head> <body> <h1>乘法贪吃蛇2</h1> <div id="difficulty-selection"> <button onclick="selectDifficulty('easy')">简单模式</button> <button onclick="selectDifficulty('normal')">普通模式</button> <button onclick="selectDifficulty('hard')">困难模式</button> </div> <div id="question">问题: </div> <div id="score">得分: 0</div> <div id="game-container"> <canvas id="gameCanvas"></canvas> <div id="game-over"> <h2>游戏结束!</h2> <p>最终得分: <span id="final-score">0</span></p> <p><span id="game-over-reason"></span></p> <button onclick="restartGame()">再玩一次</button> </div> </div> <div id="controls"> <div></div> <button class="control-btn" id="upBtn">↑</button> <div></div> <button class="control-btn" id="leftBtn">←</button> <button class="control-btn" id="downBtn">↓</button> <button class="control-btn" id="rightBtn">→</button> </div>
+</head> <body> <h1>ククスネ2</h1> <div id="difficulty-selection"> <button onclick="selectDifficulty('easy')">イージーモード</button> <button onclick="selectDifficulty('normal')">ノーマルモード</button> <button onclick="selectDifficulty('hard')">ハードモード</button> </div> <div id="question">問題: </div> <div id="score">スコア: 0</div> <div id="game-container"> <canvas id="gameCanvas"></canvas> <div id="game-over"> <h2>ゲームオーバー!</h2> <p>最終スコア: <span id="final-score">0</span></p> <p><span id="game-over-reason"></span></p> <button onclick="restartGame()">再プレイ</button> </div> </div> <div id="controls"> <div></div> <button class="control-btn" id="upBtn">↑</button> <div></div> <button class="control-btn" id="leftBtn">←</button> <button class="control-btn" id="downBtn">↓</button> <button class="control-btn" id="rightBtn">→</button> </div>
 
 <script>
     const canvas = document.getElementById('gameCanvas');
@@ -341,7 +342,7 @@ body {
             result: num1 * num2
         };
         document.getElementById('question').textContent = 
-            `问题: ${num1} × ${num2} = ?`;
+            `問題: ${num1} × ${num2} = ?`;
     }
 
     function generateFoods() {
@@ -425,13 +426,13 @@ body {
         const head = snake[0];
 
         if (!noWallCollision && (head.x < 0 || head.x >= tileCount || head.y < 0 || head.y >= tileCount)) {
-            setGameOver("撞到墙壁了！");
+            setGameOver("壁にぶつかりました！");
             return;
         }
 
         for (let i = 1; i < snake.length; i++) {
             if (head.x === snake[i].x && head.y === snake[i].y) {
-                setGameOver("撞到自己了！");
+                setGameOver("自分にぶつかりました！");
                 return;
             }
         }
@@ -439,7 +440,7 @@ body {
         enemySnakes.forEach(enemy => {
             for(let segment of enemy.body) {
                 if(head.x === segment.x && head.y === segment.y) {
-                    setGameOver("撞到敌蛇了！");
+                    setGameOver("敵蛇にぶつかりました！");
                     return;
                 }
             }
@@ -450,11 +451,11 @@ body {
                 if (foods[i].isCorrect) {
                     score += Math.round(10 * scoreMultiplier);
                     snake.push({});
-                    document.getElementById('score').textContent = `得分: ${score}`;
+                    document.getElementById('score').textContent = `スコア: ${score}`;
                     generateQuestion();
                     generateFoods();
                 } else {
-                    setGameOver(`答错了！正确答案是 ${currentQuestion.result}`);
+                    setGameOver(`不正解！正解は ${currentQuestion.result}`);
                 }
                 break;
             }
@@ -503,7 +504,7 @@ body {
         score = 0;
         gameOver = false;
         gameOverReason = "";
-        document.getElementById('score').textContent = `得分: ${score}`;
+        document.getElementById('score').textContent = `スコア: ${score}`;
         document.getElementById('game-over').style.display = 'none';
         generateQuestion();
         generateFoods();
